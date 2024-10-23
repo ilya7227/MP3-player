@@ -1,0 +1,21 @@
+.App {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+
+.malenkiy_visual {
+    height: 100px;
+    width: 500 =px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    background-color: grey;
+}
+
+.pleer {
+    display: flex;
+    flex-direction: column;
+}
