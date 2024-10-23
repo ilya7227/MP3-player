@@ -16,6 +16,27 @@ function App() {
   
   const audioRef = useRef(null);
 
+
+  const handleEnded = () => {
+    const nextIndex = (currentMusic + 1) % musicList.length; // для автовоспроизведения следующих песен
+    setCurrentMusic(nextIndex);
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    var playPromise = audioRef.current.play();
+    if (playPromise !== undefined) { 
+      playPromise.then(_ => {
+        audio.play()
+
+      })
+      .catch(error => {
+        
+      });
+    }
+  }, [currentMusic]);
+
+
   const  handleVolume = (e) => {
     const newVolume = e.target.value;
     setMusicVolume(newVolume);
@@ -75,6 +96,8 @@ function App() {
     
   }
 
+  
+
   const handleOnClick4 = () => {
     const  prevIndex = (currentMusic - 1 + musicList.length) % musicList.length;
     setCurrentMusic(prevIndex);
@@ -102,9 +125,13 @@ function App() {
     return `${minutes}:${secs < 10 ? '0' : ''}${secs}`; // эт написал, в случае если секунды меньше 10, то чтоб 0 приписывался, типа красиво
   }
 
+  
+
+  
+
   return (
     <div className="App">
-      <audio ref={audioRef} src={musicList[currentMusic]} onLoadedMetadata={()=> {
+      <audio onEnded={handleEnded} ref={audioRef} src={musicList[currentMusic]} onLoadedMetadata={()=> {
         setMusicTime(audioRef.current.duration) // вот эту тему тоже загуглил, т.к. хер знал как продолжительность найти
       }}></audio>
       <div className="pleer">
